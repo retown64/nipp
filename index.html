@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover,user-scalable=no">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="日報アプリ">
+<link rel="manifest" href="manifest.json">
+<title>日報アプリ</title>
+<style>
+:root{--bg:#f3f4f6;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--main:#111827;--blue:#2563eb;--red:#dc2626;--green:#15803d}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Noto Sans JP","Hiragino Sans",sans-serif}
+.app{max-width:720px;margin:auto;min-height:100vh;padding-bottom:84px}
+header{background:var(--main);color:white;padding:calc(16px + env(safe-area-inset-top)) 18px 16px;position:sticky;top:0;z-index:5}
+.header-row{display:flex;align-items:center;justify-content:space-between}.title{font-size:21px;font-weight:800}.date-small{font-size:12px;opacity:.7;margin-top:3px}
+.view{padding:14px}.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px #00000008}
+label{display:block;font-size:13px;font-weight:800;margin:0 0 7px}.field{margin-bottom:14px}
+input,textarea{width:100%;border:1px solid #d1d5db;border-radius:13px;padding:13px;font-size:17px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus{outline:3px solid #dbeafe;border-color:var(--blue)}textarea{min-height:85px;resize:vertical}
+.sales{font-size:28px;font-weight:800;text-align:right}
+.product-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.product-head h2{font-size:16px;margin:0}
+.add{border:0;background:#eff6ff;color:#1d4ed8;border-radius:10px;padding:9px 12px;font-weight:800}
+.product{display:grid;grid-template-columns:1fr 110px 44px;gap:7px;margin-bottom:8px}.qty{display:flex;align-items:center;border:1px solid #d1d5db;border-radius:12px;overflow:hidden}.qty button{width:35px;height:44px;border:0;background:#f3f4f6;font-size:21px}.qty span{flex:1;text-align:center;font-weight:800}.remove{border:0;background:#fee2e2;color:#991b1b;border-radius:10px;font-size:20px}
+.main-btn{width:100%;border:0;background:var(--blue);color:#fff;border-radius:14px;padding:15px;font-size:17px;font-weight:800}.sub-btn{width:100%;border:0;background:#eef2f7;color:var(--ink);border-radius:14px;padding:13px;font-weight:800;margin-top:8px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f8fafc;border-radius:13px;padding:11px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:18px;margin-top:3px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.report{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:9px}.report-top{display:flex;justify-content:space-between;font-weight:800}.money{font-size:20px}.chips{margin-top:8px}.chip{display:inline-block;background:#eff6ff;color:#1e40af;border-radius:999px;padding:5px 8px;font-size:12px;margin:2px}
+.comment{color:var(--muted);font-size:13px;margin-top:8px;white-space:pre-wrap}.report-actions{display:flex;gap:7px;margin-top:10px}.report-actions button{flex:1;border:0;border-radius:10px;padding:9px;font-weight:800}.edit{background:#eef2f7}.del{background:#fee2e2;color:#991b1b}
+.empty{text-align:center;color:var(--muted);padding:38px 10px}
+.bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:10;padding:8px max(8px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom))}
+.bottom-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.bottom button{border:0;background:transparent;padding:7px;border-radius:11px;color:var(--muted);font-weight:800}.bottom button.active{background:#eef2f7;color:var(--ink)}
+.toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(15px);background:#111827;color:#fff;padding:11px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:20}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+@media(max-width:390px){.product{grid-template-columns:1fr 96px 40px}.stats{grid-template-columns:1fr}.sales{font-size:25px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="header-row"><div><div class="title">日報アプリ</div><div class="date-small" id="headDate"></div></div><div>📋</div></div></header>
+
+<main id="inputView" class="view">
+<div class="card">
+  <div class="field"><label>日付</label><input id="date" type="date"></div>
+  <div class="field"><label>売上</label><input id="sales" class="sales" type="number" inputmode="numeric" min="0" placeholder="0"></div>
+  <div class="product-head"><h2>商品・個数</h2><button class="add" onclick="addProduct()">＋ 商品追加</button></div>
+  <div id="products"></div>
+  <div class="field" style="margin-top:15px"><label>コメント</label><textarea id="comment" placeholder="今日の状況などを入力"></textarea></div>
+  <button class="main-btn" onclick="save()">日報を登録する</button>
+  <button class="sub-btn" onclick="clearForm()">入力をクリア</button>
+</div>
+<div class="card"><div style="font-weight:800;margin-bottom:10px">今日の集計</div><div class="stats">
+<div class="stat"><small>日報</small><strong id="tc">0件</strong></div>
+<div class="stat"><small>売上</small><strong id="ts">¥0</strong></div>
+<div class="stat"><small>商品数</small><strong id="tq">0個</strong></div>
+</div></div>
+</main>
+
+<main id="listView" class="view" style="display:none">
+<div class="card">
+<label>売上一覧</label>
+<div class="filters"><input id="from" type="date"><input id="to" type="date"></div>
+<button class="sub-btn" onclick="clearFilter()">期間指定をクリア</button>
+</div>
+<div class="card"><div class="stats">
+<div class="stat"><small>件数</small><strong id="lc">0件</strong></div>
+<div class="stat"><small>売上合計</small><strong id="ls">¥0</strong></div>
+<div class="stat"><small>商品合計</small><strong id="lq">0個</strong></div>
+</div></div>
+<div id="reports"></div>
+</main>
+</div>
+
+<nav class="bottom"><div class="bottom-inner">
+<button id="bInput" class="active" onclick="tab('input')">✏️<br>日報入力</button>
+<button id="bList" onclick="tab('list')">📊<br>売上一覧</button>
+</div></nav>
+<div id="toast" class="toast"></div>
+
+<script>
+const KEY='daily_report_app_v2';let editId=null;
+const $=id=>document.getElementById(id);
+function iso(){return new Date().toLocaleDateString('sv-SE')}
+function yen(n){return '¥'+Number(n||0).toLocaleString('ja-JP')}
+function data(){return JSON.parse(localStorage.getItem(KEY)||'[]')}
+function store(x){localStorage.setItem(KEY,JSON.stringify(x))}
+function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1700)}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
+function addProduct(name='',qty=0){
+ const d=document.createElement('div');d.className='product';
+ d.innerHTML=`<input class="pn" placeholder="商品名" value="${esc(name)}"><div class="qty"><button type="button">−</button><span>${qty}</span><button type="button">＋</button></div><button class="remove" type="button">×</button>`;
+ const q=d.querySelector('.qty span');const btns=d.querySelectorAll('.qty button');
+ btns[0].onclick=()=>q.textContent=Math.max(0,+q.textContent-1);
+ btns[1].onclick=()=>q.textContent=+q.textContent+1;
+ d.querySelector('.remove').onclick=()=>{d.remove();if(!document.querySelector('.product'))addProduct()};
+ $('products').appendChild(d)
+}
+function getProducts(){return [...document.querySelectorAll('.product')].map(d=>({name:d.querySelector('.pn').value.trim(),qty:+d.querySelector('.qty span').textContent})).filter(x=>x.name)}
+function clearForm(){editId=null;$('date').value=iso();$('sales').value='';$('comment').value='';$('products').innerHTML='';addProduct()}
+function save(){
+ const ps=getProducts(),date=$('date').value,sales=+$('sales').value||0;
+ if(!date)return alert('日付を入力してください');
+ if(!ps.length)return alert('商品名を1つ以上入力してください');
+ let d=data();const item={id:editId||Date.now().toString(),date,sales,products:ps,comment:$('comment').value.trim()};
+ if(editId){const i=d.findIndex(x=>x.id===editId);if(i>=0)d[i]=item}else d.push(item);store(d);
+ toast(editId?'更新しました':'登録しました');clearForm();today();
+}
+function tab(t){$('inputView').style.display=t==='input'?'block':'none';$('listView').style.display=t==='list'?'block':'none';$('bInput').classList.toggle('active',t==='input');$('bList').classList.toggle('active',t==='list');if(t==='list')render();today()}
+function today(){
+ const a=data().filter(x=>x.date===iso());$('headDate').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+ $('tc').textContent=a.length+'件';$('ts').textContent=yen(a.reduce((s,x)=>s+x.sales,0));$('tq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個'
+}
+function filtered(){let a=data(),f=$('from').value,t=$('to').value;return a.filter(x=>(!f||x.date>=f)&&(!t||x.date<=t)).sort((a,b)=>b.date.localeCompare(a.date))}
+function render(){
+ const a=filtered();$('lc').textContent=a.length+'件';$('ls').textContent=yen(a.reduce((s,x)=>s+x.sales,0));$('lq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個';
+ $('reports').innerHTML=a.length?a.map(x=>`<div class="report"><div class="report-top"><span>${esc(x.date)}</span><span class="money">${yen(x.sales)}</span></div><div class="chips">${x.products.map(p=>`<span class="chip">${esc(p.name)} × ${p.qty}</span>`).join('')}</div>${x.comment?`<div class="comment">${esc(x.comment)}</div>`:''}<div class="report-actions"><button class="edit" onclick="edit('${x.id}')">編集</button><button class="del" onclick="removeReport('${x.id}')">削除</button></div></div>`).join(''):'<div class="empty">日報はまだありません</div>'
+}
+function edit(id){let x=data().find(v=>v.id===id);if(!x)return;editId=id;$('date').value=x.date;$('sales').value=x.sales;$('comment').value=x.comment||'';$('products').innerHTML='';x.products.forEach(p=>addProduct(p.name,p.qty));tab('input');scrollTo(0,0)}
+function removeReport(id){if(confirm('この日報を削除しますか？')){store(data().filter(x=>x.id!==id));render();today();toast('削除しました')}}
+function clearFilter(){$('from').value='';$('to').value='';render()}
+$('from').onchange=render;$('to').onchange=render;
+clearForm();today();
+if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
+</script>
+</body>
+</html>
