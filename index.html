@@ -18,22 +18,30 @@ header{background:var(--main);color:white;padding:calc(16px + env(safe-area-inse
 .header-row{display:flex;align-items:center;justify-content:space-between}.title{font-size:21px;font-weight:800}.date-small{font-size:12px;opacity:.7;margin-top:3px}
 .view{padding:14px}.card{background:var(--card);border-radius:18px;padding:16px;margin-bottom:12px;box-shadow:0 2px 12px #00000008}
 label{display:block;font-size:13px;font-weight:800;margin:0 0 7px}.field{margin-bottom:14px}
-input,textarea{width:100%;border:1px solid #d1d5db;border-radius:13px;padding:13px;font-size:17px;background:#fff;color:var(--ink)}
-input:focus,textarea:focus{outline:3px solid #dbeafe;border-color:var(--blue)}textarea{min-height:85px;resize:vertical}
-.sales{font-size:28px;font-weight:800;text-align:right}
+input,textarea,select{width:100%;border:1px solid #d1d5db;border-radius:13px;padding:13px;font-size:17px;background:#fff;color:var(--ink)}
+input:focus,textarea:focus,select:focus{outline:3px solid #dbeafe;border-color:var(--blue)}
+textarea{min-height:85px;resize:vertical}.sales{font-size:28px;font-weight:800;text-align:right}
 .product-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}.product-head h2{font-size:16px;margin:0}
 .add{border:0;background:#eff6ff;color:#1d4ed8;border-radius:10px;padding:9px 12px;font-weight:800}
-.product{display:grid;grid-template-columns:1fr 110px 44px;gap:7px;margin-bottom:8px}.qty{display:flex;align-items:center;border:1px solid #d1d5db;border-radius:12px;overflow:hidden}.qty button{width:35px;height:44px;border:0;background:#f3f4f6;font-size:21px}.qty span{flex:1;text-align:center;font-weight:800}.remove{border:0;background:#fee2e2;color:#991b1b;border-radius:10px;font-size:20px}
-.main-btn{width:100%;border:0;background:var(--blue);color:#fff;border-radius:14px;padding:15px;font-size:17px;font-weight:800}.sub-btn{width:100%;border:0;background:#eef2f7;color:var(--ink);border-radius:14px;padding:13px;font-weight:800;margin-top:8px}
+.product{display:grid;grid-template-columns:1fr 92px 112px 44px;gap:7px;margin-bottom:8px;align-items:center}
+.qty{display:flex;align-items:center;border:1px solid #d1d5db;border-radius:12px;overflow:hidden;background:#fff}.qty button{width:30px;height:44px;border:0;background:#f3f4f6;font-size:20px}.qty span{flex:1;text-align:center;font-weight:800}
+.price-input{font-size:15px;padding:11px;text-align:right}.subtotal{font-weight:800;text-align:right;font-size:14px;white-space:nowrap}
+.remove{border:0;background:#fee2e2;color:#991b1b;border-radius:10px;font-size:20px;height:44px}
+.main-btn{width:100%;border:0;background:var(--blue);color:#fff;border-radius:14px;padding:15px;font-size:17px;font-weight:800}
+.sub-btn{width:100%;border:0;background:#eef2f7;color:var(--ink);border-radius:14px;padding:13px;font-weight:800;margin-top:8px}
+.share-btn{width:100%;border:0;background:#dcfce7;color:#166534;border-radius:14px;padding:13px;font-weight:800;margin-top:8px}
 .stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:#f8fafc;border-radius:13px;padding:11px}.stat small{color:var(--muted)}.stat strong{display:block;font-size:18px;margin-top:3px}
-.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
+.filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px}.filter-mode{display:grid;grid-template-columns:1fr 1fr 1fr;gap:7px;margin-bottom:10px}
+.filter-mode button{border:0;background:#eef2f7;color:var(--ink);border-radius:10px;padding:10px;font-weight:800}.filter-mode button.active{background:var(--blue);color:#fff}
+.filter-help{font-size:12px;color:var(--muted);margin:5px 0 0}
 .report{border:1px solid var(--line);border-radius:14px;padding:13px;margin-bottom:9px}.report-top{display:flex;justify-content:space-between;font-weight:800}.money{font-size:20px}.chips{margin-top:8px}.chip{display:inline-block;background:#eff6ff;color:#1e40af;border-radius:999px;padding:5px 8px;font-size:12px;margin:2px}
 .comment{color:var(--muted);font-size:13px;margin-top:8px;white-space:pre-wrap}.report-actions{display:flex;gap:7px;margin-top:10px}.report-actions button{flex:1;border:0;border-radius:10px;padding:9px;font-weight:800}.edit{background:#eef2f7}.del{background:#fee2e2;color:#991b1b}
 .empty{text-align:center;color:var(--muted);padding:38px 10px}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#fff;border-top:1px solid var(--line);z-index:10;padding:8px max(8px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom))}
 .bottom-inner{max-width:720px;margin:auto;display:grid;grid-template-columns:1fr 1fr;gap:7px}.bottom button{border:0;background:transparent;padding:7px;border-radius:11px;color:var(--muted);font-weight:800}.bottom button.active{background:#eef2f7;color:var(--ink)}
 .toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%) translateY(15px);background:#111827;color:#fff;padding:11px 15px;border-radius:999px;font-size:13px;opacity:0;pointer-events:none;transition:.2s;z-index:20}.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:390px){.product{grid-template-columns:1fr 96px 40px}.stats{grid-template-columns:1fr}.sales{font-size:25px}}
+@media(max-width:520px){.product{grid-template-columns:1fr 78px 92px 40px}.subtotal{font-size:12px}.price-input{font-size:14px;padding:10px}}
+@media(max-width:390px){.product{grid-template-columns:1fr 70px 82px 38px}.stats{grid-template-columns:1fr}.sales{font-size:25px}}
 </style>
 </head>
 <body>
@@ -42,14 +50,18 @@ input:focus,textarea:focus{outline:3px solid #dbeafe;border-color:var(--blue)}te
 
 <main id="inputView" class="view">
 <div class="card">
-  <div class="field"><label>日付</label><input id="date" type="date"></div>
-  <div class="field"><label>売上</label><input id="sales" class="sales" type="number" inputmode="numeric" min="0" placeholder="0"></div>
-  <div class="product-head"><h2>商品・個数</h2><button class="add" onclick="addProduct()">＋ 商品追加</button></div>
-  <div id="products"></div>
-  <div class="field" style="margin-top:15px"><label>コメント</label><textarea id="comment" placeholder="今日の状況などを入力"></textarea></div>
-  <button class="main-btn" onclick="save()">日報を登録する</button>
-  <button class="sub-btn" onclick="clearForm()">入力をクリア</button>
+<div class="field"><label>日付</label><input id="date" type="date"></div>
+
+<div class="product-head"><h2>商品・単価・個数</h2><button class="add" onclick="addProduct()">＋ 商品追加</button></div>
+<div id="products"></div>
+
+<div class="field" style="margin-top:15px"><label>売上合計（自動計算）</label><input id="sales" class="sales" type="number" inputmode="numeric" min="0" placeholder="0" readonly></div>
+
+<div class="field"><label>コメント</label><textarea id="comment" placeholder="今日の状況などを入力"></textarea></div>
+<button class="main-btn" onclick="save()">日報を登録する</button>
+<button class="sub-btn" onclick="clearForm()">入力をクリア</button>
 </div>
+
 <div class="card"><div style="font-weight:800;margin-bottom:10px">今日の集計</div><div class="stats">
 <div class="stat"><small>日報</small><strong id="tc">0件</strong></div>
 <div class="stat"><small>売上</small><strong id="ts">¥0</strong></div>
@@ -60,9 +72,18 @@ input:focus,textarea:focus{outline:3px solid #dbeafe;border-color:var(--blue)}te
 <main id="listView" class="view" style="display:none">
 <div class="card">
 <label>売上一覧</label>
-<div class="filters"><input id="from" type="date"><input id="to" type="date"></div>
-<button class="sub-btn" onclick="clearFilter()">期間指定をクリア</button>
+<div class="filter-mode">
+<button id="allMode" onclick="setFilterMode('all')">すべて</button>
+<button id="monthMode" onclick="setFilterMode('month')">月別</button>
+<button id="dayMode" onclick="setFilterMode('day')">日別</button>
 </div>
+
+<div id="monthFilter" class="field" style="display:none"><label>月を選択</label><input id="month" type="month"></div>
+<div id="dayFilter" class="field" style="display:none"><label>日を選択</label><input id="day" type="date"></div>
+<button class="sub-btn" onclick="clearFilter()">検索条件をクリア</button>
+<button class="share-btn" onclick="shareSales()">📤 表示中の売上一覧を共有</button>
+</div>
+
 <div class="card"><div class="stats">
 <div class="stat"><small>件数</small><strong id="lc">0件</strong></div>
 <div class="stat"><small>売上合計</small><strong id="ls">¥0</strong></div>
@@ -79,48 +100,211 @@ input:focus,textarea:focus{outline:3px solid #dbeafe;border-color:var(--blue)}te
 <div id="toast" class="toast"></div>
 
 <script>
-const KEY='daily_report_app_v2';let editId=null;
+const KEY='daily_report_app_v3';
+const PRICE_KEY='daily_report_product_prices_v1';
+let editId=null;
+let filterMode='all';
+
 const $=id=>document.getElementById(id);
 function iso(){return new Date().toLocaleDateString('sv-SE')}
 function yen(n){return '¥'+Number(n||0).toLocaleString('ja-JP')}
 function data(){return JSON.parse(localStorage.getItem(KEY)||'[]')}
 function store(x){localStorage.setItem(KEY,JSON.stringify(x))}
+function prices(){return JSON.parse(localStorage.getItem(PRICE_KEY)||'{}')}
+function storePrices(x){localStorage.setItem(PRICE_KEY,JSON.stringify(x))}
 function toast(s){$('toast').textContent=s;$('toast').classList.add('show');setTimeout(()=>$('toast').classList.remove('show'),1700)}
 function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]))}
-function addProduct(name='',qty=0){
+
+function addProduct(name='',qty=0,price=''){
  const d=document.createElement('div');d.className='product';
- d.innerHTML=`<input class="pn" placeholder="商品名" value="${esc(name)}"><div class="qty"><button type="button">−</button><span>${qty}</span><button type="button">＋</button></div><button class="remove" type="button">×</button>`;
- const q=d.querySelector('.qty span');const btns=d.querySelectorAll('.qty button');
- btns[0].onclick=()=>q.textContent=Math.max(0,+q.textContent-1);
- btns[1].onclick=()=>q.textContent=+q.textContent+1;
- d.querySelector('.remove').onclick=()=>{d.remove();if(!document.querySelector('.product'))addProduct()};
- $('products').appendChild(d)
+ const savedPrice=price!==''?price:(prices()[name]||'');
+ d.innerHTML=`<input class="pn" placeholder="商品名" value="${esc(name)}">
+ <div class="qty"><button type="button">−</button><span>${qty}</span><button type="button">＋</button></div>
+ <input class="price-input pp" type="number" inputmode="numeric" min="0" placeholder="単価" value="${savedPrice}">
+ <div class="subtotal">¥0</div>
+ <button class="remove" type="button">×</button>`;
+
+ const q=d.querySelector('.qty span');
+ const priceInput=d.querySelector('.pp');
+ const nameInput=d.querySelector('.pn');
+ const subtotal=d.querySelector('.subtotal');
+ const btns=d.querySelectorAll('.qty button');
+
+ function update(){
+   const sub=(+q.textContent||0)*(+priceInput.value||0);
+   subtotal.textContent=yen(sub);
+   updateSales();
+   const n=nameInput.value.trim();
+   if(n && priceInput.value!==''){
+     const p=prices();p[n]=+priceInput.value||0;storePrices(p);
+   }
+ }
+ btns[0].onclick=()=>{q.textContent=Math.max(0,+q.textContent-1);update()};
+ btns[1].onclick=()=>{q.textContent=+q.textContent+1;update()};
+ priceInput.oninput=update;
+ nameInput.oninput=()=>{const p=prices(),n=nameInput.value.trim();if(n&&p[n]!==undefined&&priceInput.value===''){priceInput.value=p[n]}update()};
+ d.querySelector('.remove').onclick=()=>{d.remove();if(!document.querySelector('.product'))addProduct();updateSales()};
+ $('products').appendChild(d);
+ update();
 }
-function getProducts(){return [...document.querySelectorAll('.product')].map(d=>({name:d.querySelector('.pn').value.trim(),qty:+d.querySelector('.qty span').textContent})).filter(x=>x.name)}
-function clearForm(){editId=null;$('date').value=iso();$('sales').value='';$('comment').value='';$('products').innerHTML='';addProduct()}
+
+function getProducts(){
+ return [...document.querySelectorAll('.product')].map(d=>({
+   name:d.querySelector('.pn').value.trim(),
+   qty:+d.querySelector('.qty span').textContent||0,
+   price:+d.querySelector('.pp').value||0
+ })).filter(x=>x.name);
+}
+
+function calcSales(){
+ return getProducts().reduce((s,p)=>s+(p.qty*p.price),0);
+}
+function updateSales(){
+ $('sales').value=calcSales();
+ document.querySelectorAll('.product').forEach(d=>{
+   const q=+d.querySelector('.qty span').textContent||0;
+   const p=+d.querySelector('.pp').value||0;
+   d.querySelector('.subtotal').textContent=yen(q*p);
+ });
+}
+
+function clearForm(){
+ editId=null;
+ $('date').value=iso();
+ $('sales').value='';
+ $('comment').value='';
+ $('products').innerHTML='';
+ addProduct();
+}
+
 function save(){
- const ps=getProducts(),date=$('date').value,sales=+$('sales').value||0;
+ const ps=getProducts(),date=$('date').value,sales=calcSales();
  if(!date)return alert('日付を入力してください');
  if(!ps.length)return alert('商品名を1つ以上入力してください');
- let d=data();const item={id:editId||Date.now().toString(),date,sales,products:ps,comment:$('comment').value.trim()};
- if(editId){const i=d.findIndex(x=>x.id===editId);if(i>=0)d[i]=item}else d.push(item);store(d);
- toast(editId?'更新しました':'登録しました');clearForm();today();
+ if(ps.some(p=>p.price<0))return alert('単価は0円以上で入力してください');
+
+ let d=data();
+ const item={id:editId||Date.now().toString(),date,sales,products:ps,comment:$('comment').value.trim()};
+ if(editId){const i=d.findIndex(x=>x.id===editId);if(i>=0)d[i]=item}else d.push(item);
+ store(d);
+ toast(editId?'更新しました':'登録しました');
+ clearForm();today();
 }
-function tab(t){$('inputView').style.display=t==='input'?'block':'none';$('listView').style.display=t==='list'?'block':'none';$('bInput').classList.toggle('active',t==='input');$('bList').classList.toggle('active',t==='list');if(t==='list')render();today()}
+
+function tab(t){
+ $('inputView').style.display=t==='input'?'block':'none';
+ $('listView').style.display=t==='list'?'block':'none';
+ $('bInput').classList.toggle('active',t==='input');
+ $('bList').classList.toggle('active',t==='list');
+ if(t==='list')render();
+ today();
+}
+
 function today(){
- const a=data().filter(x=>x.date===iso());$('headDate').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
- $('tc').textContent=a.length+'件';$('ts').textContent=yen(a.reduce((s,x)=>s+x.sales,0));$('tq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個'
+ const a=data().filter(x=>x.date===iso());
+ $('headDate').textContent=new Date().toLocaleDateString('ja-JP',{year:'numeric',month:'long',day:'numeric',weekday:'short'});
+ $('tc').textContent=a.length+'件';
+ $('ts').textContent=yen(a.reduce((s,x)=>s+x.sales,0));
+ $('tq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個';
 }
-function filtered(){let a=data(),f=$('from').value,t=$('to').value;return a.filter(x=>(!f||x.date>=f)&&(!t||x.date<=t)).sort((a,b)=>b.date.localeCompare(a.date))}
+
+function setFilterMode(mode){
+ filterMode=mode;
+ $('allMode').classList.toggle('active',mode==='all');
+ $('monthMode').classList.toggle('active',mode==='month');
+ $('dayMode').classList.toggle('active',mode==='day');
+ $('monthFilter').style.display=mode==='month'?'block':'none';
+ $('dayFilter').style.display=mode==='day'?'block':'none';
+ render();
+}
+
+function filtered(){
+ const a=data();
+ if(filterMode==='month'){
+   const m=$('month').value;
+   return a.filter(x=>!m||x.date.startsWith(m+'-')).sort((a,b)=>b.date.localeCompare(a.date));
+ }
+ if(filterMode==='day'){
+   const d=$('day').value;
+   return a.filter(x=>!d||x.date===d).sort((a,b)=>b.date.localeCompare(a.date));
+ }
+ return a.sort((a,b)=>b.date.localeCompare(a.date));
+}
+
 function render(){
- const a=filtered();$('lc').textContent=a.length+'件';$('ls').textContent=yen(a.reduce((s,x)=>s+x.sales,0));$('lq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個';
- $('reports').innerHTML=a.length?a.map(x=>`<div class="report"><div class="report-top"><span>${esc(x.date)}</span><span class="money">${yen(x.sales)}</span></div><div class="chips">${x.products.map(p=>`<span class="chip">${esc(p.name)} × ${p.qty}</span>`).join('')}</div>${x.comment?`<div class="comment">${esc(x.comment)}</div>`:''}<div class="report-actions"><button class="edit" onclick="edit('${x.id}')">編集</button><button class="del" onclick="removeReport('${x.id}')">削除</button></div></div>`).join(''):'<div class="empty">日報はまだありません</div>'
+ const a=filtered();
+ $('lc').textContent=a.length+'件';
+ $('ls').textContent=yen(a.reduce((s,x)=>s+x.sales,0));
+ $('lq').textContent=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0)+'個';
+
+ $('reports').innerHTML=a.length?a.map(x=>`
+ <div class="report">
+  <div class="report-top"><span>${esc(x.date)}</span><span class="money">${yen(x.sales)}</span></div>
+  <div class="chips">${x.products.map(p=>`<span class="chip">${esc(p.name)} × ${p.qty}（${yen(p.price)}）</span>`).join('')}</div>
+  ${x.comment?`<div class="comment">${esc(x.comment)}</div>`:''}
+  <div class="report-actions">
+   <button class="edit" onclick="edit('${x.id}')">編集</button>
+   <button class="del" onclick="removeReport('${x.id}')">削除</button>
+  </div>
+ </div>`).join(''):'<div class="empty">該当する日報はありません</div>';
 }
-function edit(id){let x=data().find(v=>v.id===id);if(!x)return;editId=id;$('date').value=x.date;$('sales').value=x.sales;$('comment').value=x.comment||'';$('products').innerHTML='';x.products.forEach(p=>addProduct(p.name,p.qty));tab('input');scrollTo(0,0)}
-function removeReport(id){if(confirm('この日報を削除しますか？')){store(data().filter(x=>x.id!==id));render();today();toast('削除しました')}}
-function clearFilter(){$('from').value='';$('to').value='';render()}
-$('from').onchange=render;$('to').onchange=render;
-clearForm();today();
+
+function edit(id){
+ const x=data().find(v=>v.id===id);if(!x)return;
+ editId=id;$('date').value=x.date;$('comment').value=x.comment||'';
+ $('products').innerHTML='';
+ x.products.forEach(p=>addProduct(p.name,p.qty,p.price));
+ updateSales();tab('input');scrollTo(0,0);
+}
+
+function removeReport(id){
+ if(confirm('この日報を削除しますか？')){
+   store(data().filter(x=>x.id!==id));render();today();toast('削除しました');
+ }
+}
+
+function clearFilter(){
+ $('month').value='';$('day').value='';
+ filterMode='all';setFilterMode('all');
+}
+
+function shareText(){
+ const a=filtered();
+ const total=a.reduce((s,x)=>s+x.sales,0);
+ const qty=a.reduce((s,x)=>s+x.products.reduce((z,p)=>z+p.qty,0),0);
+ let title='売上一覧';
+ if(filterMode==='month'&&$('month').value)title+='（'+$('month').value+'）';
+ if(filterMode==='day'&&$('day').value)title+='（'+$('day').value+'）';
+ let text=title+'\n\n';
+ text+='件数：'+a.length+'件\n';
+ text+='売上合計：'+yen(total)+'\n';
+ text+='商品合計：'+qty+'個\n\n';
+ a.forEach(x=>{
+   text+='【'+x.date+'】 '+yen(x.sales)+'\n';
+   x.products.forEach(p=>{text+='・'+p.name+' × '+p.qty+'個 × '+yen(p.price)+'\n';});
+   if(x.comment)text+='コメント：'+x.comment+'\n';
+   text+='\n';
+ });
+ return text.trim();
+}
+
+async function shareSales(){
+ const text=shareText();
+ if(navigator.share){
+   try{await navigator.share({title:'日報アプリ 売上一覧',text});toast('共有画面を開きました');}
+   catch(e){}
+ }else{
+   try{await navigator.clipboard.writeText(text);toast('売上一覧をコピーしました');}
+   catch(e){alert(text);}
+ }
+}
+
+$('month').onchange=render;
+$('day').onchange=render;
+clearForm();
+setFilterMode('all');
+today();
+
 if('serviceWorker' in navigator)navigator.serviceWorker.register('sw.js').catch(()=>{});
 </script>
 </body>
